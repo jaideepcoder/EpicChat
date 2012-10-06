@@ -1,0 +1,114 @@
+html {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+}
+
+body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+}
+
+#container {
+	margin: auto;
+	width: 50%;
+	border: 1px solid;
+	border-radius: 5px;
+	-moz-border-radius: 15px;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	height: 550px;
+	box-shadow: 10px 10px 5px #888888;
+  background: #FFFFFF;
+  background: -webkit-linear-gradient(top, #a1e048, #6a942f);
+  background: linear-gradient(top, #a1e048, #6a942f);
+}
+
+#header {
+	text-align: center;
+	font-family: "Calibri";
+	font-size: 36px;
+}
+
+#chatMessageArea {
+	padding: 1%;
+	height:63%;
+	width:53%;
+	background-color: #FFFFFF;
+	margin-bottom: 10px;
+	float: left;
+	resize: none;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+#chatFriendList {
+	float: right;
+	width: 38%;
+	height: 65%;
+	background-color: #FFFFFF;
+	margin-bottom: 10px;
+	resize: none;
+	overflow-y: scroll;
+}
+
+#chatControl {
+	background-color: #FFFFFF;
+	height: 10%;
+	width: 100%;
+	float: left;
+	margin-bottom: 10px;
+}
+
+#chatTextArea {
+	width: 85%;
+	height: 20%;
+	resize: none;
+	float: left;
+}
+
+#chatSubmit {
+	width: 13%;
+	height: 21%;
+	float: right;
+}
+
+#splash {
+	background-color: rgba(0,0,0,0.6);
+	color: #000000;
+	padding: 10px;
+	width: 20%;
+	position: absolute;
+	top: 35%;
+	left: 40%;
+	-webkit-border-radius: 2px;
+	text-align: center;
+	z-index: 2;
+	font-family: Calibri;
+	font-size: large;
+}
+
+ul {
+	margin: 0;
+	width: 90%;
+	padding: 12px;
+}
+
+ul li {
+	display: block;
+	list-style: none;
+	background-color: #8B8682;
+	text-align: center;
+	margin-bottom: 5px;
+	padding: 5px;
+}
+
+ul li:hover {
+	background-color: #FFFFFF;
+}
+
+ul li.active {
+	background-color: #FFFFFF;
+}
