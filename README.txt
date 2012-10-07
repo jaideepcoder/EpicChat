@@ -8,7 +8,7 @@
 =                                             (c) Copywrite pending   =
 =                          https://github.com/jaideepcoder/EpicChat   =
 =                                                                     =
-=                                                                     =
+=     Jaideep Kumar        Archit Saxena         Tanay Tandon         =
 =======================================================================
 
 
@@ -25,4 +25,5 @@ Features
   - Realtime audio and video upload
   - Transliteration with Google Transliterate
   - Smileys
+  - Predictive Landuage Processing
 

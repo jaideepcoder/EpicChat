@@ -53,7 +53,7 @@ class Chat extends CI_Controller {
 		$res = array();
 		$result = $this->chat_model->getChatMessage('Jaideep', 'Archit');
 		foreach ($result->result() as $row) {
-			$res[$count] = array('sender' => $row->sender, 'receiver' => $row->reciever, 'message' => $row->message);
+			$res[$count] = array('sender' => $row->sender, 'reciever' => $row->reciever, 'message' => $row->message);
 			$count++;
 		}
 		echo json_encode($res);
@@ -65,7 +65,7 @@ class Chat extends CI_Controller {
 		$res = array();
 		$result = $this->chat_model->initGetChatMessage('Jaideep', 'Archit');
 		foreach ($result->result() as $row) {
-			$res[$count] = array('sender' => $row->sender, 'receiver' => $row->reciever, 'message' => $row->message);
+			$res[$count] = array('sender' => $row->sender, 'reciever' => $row->reciever, 'message' => $row->message);
 			$count++;
 		}
 		echo json_encode($res);
