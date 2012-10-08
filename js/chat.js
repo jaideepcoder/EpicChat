@@ -1,17 +1,8 @@
 $(document).ready(function() {
 	$('#splash').hide();
-	/*$.ajax({
-		type: 'POST',
-		url: base_url+'index.php/chat/checkSession',
-		dataType: 'json',
-		success: function(data) {
-			for(x in data) {
-				if (data[x] != 1) {
-					$('#splash').show('slow');
-				}
-			}
-		}
-	});*/
+	if(state == 0) {
+		$('#splash').show('slow');
+	}
 	$("button#submit").click(function() {
 		var _user = $('#user').val();
 		$("#splash").hide('slow', function() {
@@ -68,7 +59,7 @@ $(document).ready(function() {
 			}
 		});
 	}
-	initGetMessages();
+	//initGetMessages();
 	function getMessages() {
 		$.ajax({
 			type: 'POST',
@@ -84,7 +75,21 @@ $(document).ready(function() {
 		});
 	}
 	setInterval(getMessages, 500);
+	window.setInterval(function() {
+  	var elem = document.getElementById('chatMessageArea');
+  	elem.scrollTop = elem.scrollHeight;
+	}, 500);
 	
+	$('#chatSubmit').click(function() {
+		var message = $('#chatTextArea').val();
+		$.ajax({
+			type: 'POST',
+			url: base_url+'index.php/chat/addMessage',
+			data: {
+				message: message
+			}
+		})
+	});
 });
 
 

@@ -5,19 +5,30 @@ class Chat extends CI_Controller {
 	function Chat() {
 		parent::__construct();
 		$this->load->model('chat_model');
-		$this->load->library('session');
+		//$this->load->library('session');
 		$user='';
 	}
 	
 	function index() {
+		session_start();
 		$data['title'] = 'Epic Chat';
 		$data['description'] = '';
 		$data['keywords'] = 'Epic, Chat';
-		$data['head'] = 'Chat';
+		$data['head'] = 'The Epic Chat';
 		$data['results'] = '';
 		$image_array = get_clickable_smileys(base_url() . 'smileys/', 'chatTextArea');
 		$col_array = $this->table->make_columns($image_array, 23);
 		$data['smiley_table'] = $this->table->generate($col_array);
+		
+		if(isset($_SESSION['user'])) {
+			$data['user'] = $_SESSION['user'];
+			$data['state'] = 1;
+			echo $_SESSION['user'];
+		}
+		else {
+			$data['user'] = "";
+			$data['state'] = 0;
+		}
 		$this->load->view('chat/index', $data);
 		
 	}
@@ -28,7 +39,7 @@ class Chat extends CI_Controller {
 		'user' => $user,
 		'stat' => 1
 		);
-		$this->session->set_userdata($set_session);
+		$_SESSION['user'] = $user;
 		$this->chat_model->setOnline($set_session);
 	}
 	
@@ -44,8 +55,10 @@ class Chat extends CI_Controller {
 	}
 	
 	function addMessage() {
-		$sender = $this->input->post('sender');
-		$this->chat_model->_addMessage($sender);
+		$sender = 'Jaideep';
+		$reciever = 'Archit';
+		$message = $this->input->post('message');
+		$this->chat_model->_addMessage($sender, $reciever, $message);
 	}
 	
 	function messages() {
@@ -72,13 +85,17 @@ class Chat extends CI_Controller {
 	}
 	
 	function checkSession() {
-		if($this->session->user_data('session_id') == 1) {
+		if(session_is_registered($user)) {
 			$output = array('stat' => 1);
 			echo json_encode($output);
 		}
 		else {
-			echo 1;
+			
 		}
+	}
+	
+	function closeSession() {
+		session_unset();
 	}
 	
 }

@@ -24,4 +24,14 @@ class Chat_model extends CI_Model {
 		$result = $this->db->get_where('chat', array('sender' => $sender, 'reciever' => $reciever, 'recd' => 1));
 		return $result;
 	}
+	
+	function _addMessage($sender, $reciever, $message) {
+		$data = array(
+			'sender' => $sender,
+			'reciever' => $reciever,
+			'message' => $message,
+			'recd' => 0
+		);
+		$this->db->insert('chat', $data);
+	}
 }
