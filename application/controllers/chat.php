@@ -6,7 +6,6 @@ class Chat extends CI_Controller {
 		parent::__construct();
 		$this->load->model('chat_model');
 		$this->load->library('session');
-		$user = '';
 	}
 	
 	function index() {
@@ -67,7 +66,7 @@ class Chat extends CI_Controller {
 		foreach ($result->result() as $row) {
 			$row->message = parse_smileys($row->message, base_url() . 'smileys/');
 			$row->message = str_replace('\\', "", $row->message);
-			$res[$count] = array('sender' => $row->sender, 'message' => $row->message);
+			$res[$count] = array('sender' => $row->sender, 'timestamp' => $row->sent_at, 'message' => $row->message);
 			$count++;
 		}
 		echo json_encode($res);
@@ -75,33 +74,17 @@ class Chat extends CI_Controller {
 	}
 	
 	function initMessages() {
-		echo $this->session->userdata('name');die;
 		$count = 0;
 		$res = array();
 		$result = $this->chat_model->initGetChatMessage('Jaideep', 'Archit');
 		foreach ($result->result() as $row) {
 			$row->message = parse_smileys($row->message, base_url() . 'smileys/');
 			$row->message = str_replace('\\', "", $row->message);
-			$res[$count] = array('sender' => $row->sender, 'reciever' => $row->reciever, 'message' => $row->message);
+			$res[$count] = array('sender' => $row->sender, 'timestamp' => $row->sent_at, 'message' => $row->message);
 			$count++;
 		}
 		
 		echo json_encode($res);
 	}
-	
-	function checkSession() {
-		if(session_is_registered($user)) {
-			$output = array('stat' => 1);
-			echo json_encode($output);
-		}
-		else {
-			
-		}
-	}
-	
-	function closeSession() {
-		session_unset();
-	}
-	
 }
 ?>

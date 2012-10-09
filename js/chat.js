@@ -23,7 +23,6 @@ $(document).ready(function() {
 			url: base_url+'index.php/chat/showOnline',
 			dataType: 'json',
 			success: function(data) {
-				list = "<ul>";
 				for(x in data) {
 					for(y in data[x]) {
 						list += "<li id='"+data[x][y]+"'>"
@@ -39,7 +38,8 @@ $(document).ready(function() {
 
 	//function selectReciever() {
 		$('li').click(function() {
-			$(this).addClass('active');
+			var listener = $(this).attr();
+			alert (listener);
 		});
 	//}
 	
@@ -50,46 +50,35 @@ $(document).ready(function() {
 			url: base_url+'index.php/chat/initMessages',
 			dataTpye: 'json',
 			success: function(data) {
-				for(x in data) {
-					var obj = jQuery.parseJSON(data[x]);
-					$('#chatMessageArea').append(obj.sender+"<br />");
-					$('#chatMessageArea').append(obj.reciever+"<br />");
-					$('#chatMessageArea').append(obj.message+"<br />");
-					
+				for(var i=0; i<data.length; i++) {
+					$('#chatMessageArea').append("<div id='data'><div id='sender'>"+data[i].sender+"</div>");
+					$('#chatMessageArea').append("<div id='timestamp'>"+data[i].timestamp+"</div>");
+					$('#chatMessageArea').append("<div id='message'>"+data[i].message+"</div></div><hr />");
 				}
-				/*for(x in data) {
-					
-					for(y in data[x]) {
-						$('#chatMessageArea').append(data[x][y]+"<br />");
-					}
-				}*/
 			}
 		});
 	}
-	setTimeout(initGetMessages, 0);
+	//setTimeout(initGetMessages, 0);
+	
 	function getMessages() {
+		var count = 0;
 		$.ajax({
 			type: 'POST',
 			url: base_url+'index.php/chat/messages',
 			dataType: 'json',
 			success: function(data) {
-				var ob = jQuery.parseJSON(data);
-				alert(ob.sender);
-				alert()
-				for(x in data) {
-					/*for(y in data[x]) {
-						$('#chatMessageArea').append("<div id='sender'>"+data[x][y]+"</div>");
-					}*/
-					var obj = jQuery.parseJSON(data[x]);
-					$('#chatMessageArea').append(obj.sender+"<br />");
-					$('#chatMessageArea').append(obj.reciever+"<br />");
-					$('#chatMessageArea').append(obj.message+"<br />");
+				for(var i=0; i<data.length; i++) {
+					$('#chatMessageArea').append("<div id='data'><div id='sender'>"+data[i].sender+"</div>");
+					$('#chatMessageArea').append("<div id='timestamp'>"+data[i].timestamp+"</div>");
+					$('#chatMessageArea').append("<div id='message'>"+data[i].message+"</div></div><hr />");
 				}
 			}
 		});
 	}
 	setTimeout(setInterval(getMessages, 500), 1000);
-	
+	$('#data').hover(function() {
+		$('#timestamp').css('color', '#000000');
+	});
 	
 	$('#chatSubmit').click(function() {
 		var message = $('#chatTextArea').val();

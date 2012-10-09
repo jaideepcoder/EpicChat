@@ -118,3 +118,23 @@ ul li:hover {
 ul li.active {
 	background-color: #FFFFFF;
 }
+
+#sender {
+	float: left;
+	text-decoration:blink;
+}
+
+#timestamp {
+	float: right;
+	color: #FFFFFF;
+	font-size:smaller;
+}
+
+#timestamp:hover {
+	color: #000000;
+}
+
+#message {
+	clear:both;	
+	font-size:small;
+}
