@@ -1,8 +1,5 @@
 $(document).ready(function() {
-	$('#splash').hide();
-	if(state == 0) {
-		$('#splash').show('slow');
-	}
+	
 	$("button#submit").click(function() {
 		var _user = $('#user').val();
 		$("#splash").hide('slow', function() {
@@ -10,9 +7,11 @@ $(document).ready(function() {
 			type: 'POST',
 			url: base_url+'index.php/chat/setUser',
 			data: {
-				user: _user,
-				online: 1
-			}
+				user: _user
+			},
+			success: function() {
+				$('html').load(base_url);
+			} 
 		});	
 		});
 	});
@@ -52,43 +51,58 @@ $(document).ready(function() {
 			dataTpye: 'json',
 			success: function(data) {
 				for(x in data) {
+					var obj = jQuery.parseJSON(data[x]);
+					$('#chatMessageArea').append(obj.sender+"<br />");
+					$('#chatMessageArea').append(obj.reciever+"<br />");
+					$('#chatMessageArea').append(obj.message+"<br />");
+					
+				}
+				/*for(x in data) {
+					
 					for(y in data[x]) {
 						$('#chatMessageArea').append(data[x][y]+"<br />");
 					}
-				}
+				}*/
 			}
 		});
 	}
-	//initGetMessages();
+	setTimeout(initGetMessages, 0);
 	function getMessages() {
 		$.ajax({
 			type: 'POST',
 			url: base_url+'index.php/chat/messages',
 			dataType: 'json',
 			success: function(data) {
+				var ob = jQuery.parseJSON(data);
+				alert(ob.sender);
+				alert()
 				for(x in data) {
-					for(y in data[x]) {
-						$('#chatMessageArea').append(data[x][y]+"<br />");
-					}
+					/*for(y in data[x]) {
+						$('#chatMessageArea').append("<div id='sender'>"+data[x][y]+"</div>");
+					}*/
+					var obj = jQuery.parseJSON(data[x]);
+					$('#chatMessageArea').append(obj.sender+"<br />");
+					$('#chatMessageArea').append(obj.reciever+"<br />");
+					$('#chatMessageArea').append(obj.message+"<br />");
 				}
 			}
 		});
 	}
-	setInterval(getMessages, 500);
-	window.setInterval(function() {
-  	var elem = document.getElementById('chatMessageArea');
-  	elem.scrollTop = elem.scrollHeight;
-	}, 500);
+	setTimeout(setInterval(getMessages, 500), 1000);
+	
 	
 	$('#chatSubmit').click(function() {
 		var message = $('#chatTextArea').val();
+		document.getElementById('chatTextArea').value = '';
 		$.ajax({
 			type: 'POST',
 			url: base_url+'index.php/chat/addMessage',
 			data: {
+				sender: 'Jaideep',
+				reciever: 'Tanay',
 				message: message
 			}
-		})
+		});
 	});
 });
 

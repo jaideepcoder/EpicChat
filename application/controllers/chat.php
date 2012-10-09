@@ -5,12 +5,12 @@ class Chat extends CI_Controller {
 	function Chat() {
 		parent::__construct();
 		$this->load->model('chat_model');
-		//$this->load->library('session');
-		$user='';
+		$this->load->library('session');
+		$user = '';
 	}
 	
 	function index() {
-		session_start();
+		$this->session->set_userdata('name', 'ajay');
 		$data['title'] = 'Epic Chat';
 		$data['description'] = '';
 		$data['keywords'] = 'Epic, Chat';
@@ -19,20 +19,19 @@ class Chat extends CI_Controller {
 		$image_array = get_clickable_smileys(base_url() . 'smileys/', 'chatTextArea');
 		$col_array = $this->table->make_columns($image_array, 23);
 		$data['smiley_table'] = $this->table->generate($col_array);
-		
-		if(isset($_SESSION['user'])) {
-			$data['user'] = $_SESSION['user'];
-			$data['state'] = 1;
-			echo $_SESSION['user'];
-		}
-		else {
-			$data['user'] = "";
-			$data['state'] = 0;
-		}
 		$this->load->view('chat/index', $data);
-		
 	}
 	
+	function getUser() {
+		if(isset($_SESSION['user'])) {
+			$user = $_SESSION['user'];
+			echo json_encode($user);
+		}
+		else {
+			$user = "''";
+			echo json_encode($user);
+		}
+	}
 	function setUser() {
 		$user = $this->input->post('user');
 		$set_session = array(
@@ -55,8 +54,8 @@ class Chat extends CI_Controller {
 	}
 	
 	function addMessage() {
-		$sender = 'Jaideep';
-		$reciever = 'Archit';
+		$sender = $this->input->post('sender');
+		$reciever = $this->input->post('reciever');
 		$message = $this->input->post('message');
 		$this->chat_model->_addMessage($sender, $reciever, $message);
 	}
@@ -66,7 +65,9 @@ class Chat extends CI_Controller {
 		$res = array();
 		$result = $this->chat_model->getChatMessage('Jaideep', 'Archit');
 		foreach ($result->result() as $row) {
-			$res[$count] = array('sender' => $row->sender, 'reciever' => $row->reciever, 'message' => $row->message);
+			$row->message = parse_smileys($row->message, base_url() . 'smileys/');
+			$row->message = str_replace('\\', "", $row->message);
+			$res[$count] = array('sender' => $row->sender, 'message' => $row->message);
 			$count++;
 		}
 		echo json_encode($res);
@@ -74,13 +75,17 @@ class Chat extends CI_Controller {
 	}
 	
 	function initMessages() {
+		echo $this->session->userdata('name');die;
 		$count = 0;
 		$res = array();
 		$result = $this->chat_model->initGetChatMessage('Jaideep', 'Archit');
 		foreach ($result->result() as $row) {
+			$row->message = parse_smileys($row->message, base_url() . 'smileys/');
+			$row->message = str_replace('\\', "", $row->message);
 			$res[$count] = array('sender' => $row->sender, 'reciever' => $row->reciever, 'message' => $row->message);
 			$count++;
 		}
+		
 		echo json_encode($res);
 	}
 	

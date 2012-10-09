@@ -1,6 +1,5 @@
-
-<html>
 <!DOCTYPE HTML>
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" " />
 		<meta name="description" content="<?= $description; ?>" />
@@ -12,20 +11,10 @@
 		<script type="text/javascript" src="<?= base_url(); ?>js/chat.js"></script>
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript" src="<?= base_url(); ?>js/transliterator.js"></script>
-		<script type="text/javascript">
-			//Server Initialisation
-			var base_url = '<?= base_url(); ?>';
-			var user = <?= $user; ?>;
-			var state = <?= $state; ?>;
-		</script>
+		<script type="text/javascript">var base_url = '<?= base_url(); ?>';</script>
 		<?= smiley_js(); ?>
 	</head>
 	<body>
-		<div id='splash'>
-			<p>Enter your Name <input type="text" id="user" style="width: 250px;" /><br />
-			<button name="Submit" id="submit" >Submit</button>
-			
-		</div>
 		<div id="header">
 			<?= $head; ?>
 		</div>

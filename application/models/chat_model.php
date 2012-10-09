@@ -27,8 +27,8 @@ class Chat_model extends CI_Model {
 	
 	function _addMessage($sender, $reciever, $message) {
 		$data = array(
-			'sender' => $sender,
-			'reciever' => $reciever,
+			'sender' => 'Jaideep',
+			'reciever' => 'Archit',
 			'message' => $message,
 			'recd' => 0
 		);
