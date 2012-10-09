@@ -79,7 +79,11 @@ $(document).ready(function() {
 	$('#data').hover(function() {
 		$('#timestamp').css('color', '#000000');
 	});
-	
+	function scroller(){
+		var myDiv = document.getElementById('chatMessageArea');
+		myDiv.scrollTop = myDiv.scrollHeight;
+}
+setInterval(scroller,500);
 	$('#chatSubmit').click(function() {
 		var message = $('#chatTextArea').val();
 		document.getElementById('chatTextArea').value = '';
