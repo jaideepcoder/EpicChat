@@ -8,11 +8,6 @@
 		<script type="text/javascript">var base_url = '<?= base_url(); ?>';</script>
 	</head>
 	<body>
-		<div id='splash'>
-			<input type="text" id="user" style="width: 250px; text-align: center; margin-top: 15px;" placeholder="Enter your Name"/><br />
-			<button name="Submit" id="submit" >Submit</button>
-			
-		</div>
 	</body>
 </html>
 <?php

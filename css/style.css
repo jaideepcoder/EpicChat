@@ -2,6 +2,7 @@ html {
 	height: 100%;
 	width: 100%;
 	margin: 0;
+	font-family: Calibri;
 }
 
 body {
@@ -96,32 +97,44 @@ body {
 	font-size: large;
 }
 
-ul {
-	margin: 0;
-	width: 90%;
-	padding: 12px;
-}
-
-ul li {
+#online {
+	margin: 5px;
+	width: 92.5%;
 	display: block;
-	list-style: none;
-	background-color: #8B8682;
+	background-color: #A1E048;
 	text-align: center;
-	margin-bottom: 5px;
 	padding: 5px;
 }
 
-ul li:hover {
-	background-color: #FFFFFF;
+#online:hover {
+	background-color: #2B520D;
 }
 
-ul li.active {
-	background-color: #FFFFFF;
+#online.active {
+	background-color: #274511;
 }
 
+#close {
+	position: fixed;
+	top:0;
+	right:0;
+	font-size:larger;
+	background-color: #2B520D;
+	height:40px;
+	color:#A1E048;
+	width: 100px;
+	text-align: center;
+	padding-top: 10px;
+}
+#close:hover {
+	background-color: #6A942F;
+	color: #000000;
+}
 #sender {
 	float: left;
 	text-decoration:blink;
+	font-weight:bold;
+	margin-bottom: 5px;
 }
 
 #timestamp {
@@ -136,5 +149,33 @@ ul li.active {
 
 #message {
 	clear:both;	
-	font-size:small;
+	font-size:large;
+}
+
+#livesearch {
+	padding: 2px;
+	background-color: #2B520D;
+	color: #A1E048; 
+	position: fixed;
+	top: 600px;
+	width: 300px;
+}
+#value:hover {
+	background-color: #A1E048;
+	color: #000000;
+}
+#chatUpload {
+	padding: 2px;
+	background-color: #2B520D;
+	color: #A1E048; 
+	position: fixed;
+	bottom: 0;
+	right:0;
+	width: 300px;
+	height: auto;
+}
+
+#image {
+	height: auto;
+	width: 300px;
 }

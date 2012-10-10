@@ -15,6 +15,12 @@
 		<?= smiley_js(); ?>
 	</head>
 	<body>
+		<div id='close'>Sign Out</div>
+		<div id='splash'>
+			<input type="text" id="user" style="width: 250px; text-align: center; margin-top: 15px;" placeholder="Enter your Name"/><br />
+			<button name="Submit" id="submit" >Submit</button>
+			
+		</div>
 		<div id="header">
 			<?= $head; ?>
 		</div>

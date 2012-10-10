@@ -57,15 +57,31 @@ class Chat extends CI_Controller {
 		$reciever = $this->input->post('reciever');
 		$message = $this->input->post('message');
 		$this->chat_model->_addMessage($sender, $reciever, $message);
+		$result = $this->chat_model->thisMessage($sender, $reciever, $message);
+		foreach($result->result() as $row) {
+			$row->message = parse_smileys($row->message, base_url() . 'smileys/');
+			$row->message = str_replace('\\', "", $row->message);
+			if($row->file_name != NULL) {
+				$row->message = '<img id="image" src="' . base_url() . 'upload/'. $row->file_name. '" />';
+			}
+			$res = array('sender' => $row->sender, 'timestamp' => $row->sent_at, 'message' => $row->message);
+		}
+		
+		echo json_encode($res);
 	}
 	
 	function messages() {
 		$count = 0;
 		$res = array();
-		$result = $this->chat_model->getChatMessage('Jaideep', 'Archit');
+		$sender = $this->input->post('sender');
+		$reciever = $this->input->post('reciever');
+		$result = $this->chat_model->getChatMessage($sender, $reciever);
 		foreach ($result->result() as $row) {
 			$row->message = parse_smileys($row->message, base_url() . 'smileys/');
 			$row->message = str_replace('\\', "", $row->message);
+			if($row->file_name != NULL) {
+				$row->message = '<img id="image" src="' . base_url() . 'upload/'. $row->file_name. '" />';
+			}
 			$res[$count] = array('sender' => $row->sender, 'timestamp' => $row->sent_at, 'message' => $row->message);
 			$count++;
 		}
@@ -85,6 +101,11 @@ class Chat extends CI_Controller {
 		}
 		
 		echo json_encode($res);
+	}
+	
+	function unsetUser() {
+		$user =$this->input->post('user');
+		$this->chat_model->removeUser($user);
 	}
 }
 ?>
